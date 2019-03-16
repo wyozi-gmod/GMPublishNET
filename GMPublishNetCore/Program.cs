@@ -24,6 +24,7 @@ namespace GMPublish
         static bool isRunning;
 
         static string user, pass;
+        static string addonRoot;
         static string authCode, twoFactorAuth;
 
         public static readonly uint APPID = 4000;
@@ -35,14 +36,15 @@ namespace GMPublish
             //    Console.WriteLine("[{0}] {1}", level, msg);
             //});
 
-            if (args.Length < 2)
+            if (args.Length < 3)
             {
-                Console.WriteLine("GMPublish: No username and password specified!");
+                Console.WriteLine("GMPublish: missing arguments. gmpublish.exe [user] [password] [addonFolder]");
                 return;
             }
 
             user = args[0];
             pass = args[1];
+            addonRoot = args[2];
 
             steamClient = new SteamClient();
             manager = new CallbackManager(steamClient);
@@ -87,7 +89,7 @@ namespace GMPublish
                     await CloudStream.DeleteFile("gmpublish_icon.jpg", APPID, steamClient);
                     await CloudStream.DeleteFile("gmpublish.gma", APPID, steamClient);
 
-                    var baseFolder = "./Addon";
+                    var baseFolder = addonRoot;
                     var gmaPath = "./addon.gma"; //Path.GetTempFileName();
 
                     var addonJsonPath = Path.Combine(baseFolder, "addon.json");
