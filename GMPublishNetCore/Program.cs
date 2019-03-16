@@ -163,6 +163,8 @@ namespace GMPublish
                         foreach (var tag in addon.Tags) { request.tags.Add(tag); }
 
                         var updateCallback = await publishService.SendMessage(publish => publish.Update(request));
+                        if (updateCallback.Result != EResult.OK) { Console.WriteLine("Update failed: " + updateCallback.Result); return; }
+
                         var updateResponse = updateCallback.GetDeserializedResponse<CPublishedFile_Update_Response>();
                         
                         Console.WriteLine("Addon has been updated");
