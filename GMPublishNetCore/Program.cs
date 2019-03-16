@@ -44,8 +44,6 @@ namespace GMPublish
             user = args[0];
             pass = args[1];
 
-            SteamDirectory.Initialize().Wait();
-
             steamClient = new SteamClient();
             manager = new CallbackManager(steamClient);
             steamUser = steamClient.GetHandler<SteamUser>();
@@ -183,14 +181,6 @@ namespace GMPublish
         #region SteamLogin
         static void OnConnected(SteamClient.ConnectedCallback callback)
         {
-            if (callback.Result != EResult.OK)
-            {
-                Console.WriteLine("Unable to connect to Steam: {0}", callback.Result);
-
-                isRunning = false;
-                return;
-            }
-
             Console.WriteLine("Connected to Steam! Logging in '{0}'...", user);
 
             byte[] sentryHash = null;
