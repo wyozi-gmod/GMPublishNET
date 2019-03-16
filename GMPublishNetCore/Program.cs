@@ -158,8 +158,7 @@ namespace GMPublish
                             filename = "gmpublish.gma",
                             preview_filename = "gmpublish_icon.jpg",
                             title = addon.Title,
-                            file_description = addon.Description,
-                            visibility = (uint)EPublishedFileVisibility.Public,
+                            file_description = addon.Description
                         };
                         foreach (var tag in addon.Tags) { request.tags.Add(tag); }
 
